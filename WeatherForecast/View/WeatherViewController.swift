@@ -11,7 +11,6 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var weatherTableView: UITableView!
     var weatherVM:WeatherViewModel = WeatherViewModel()
     let searchController = UISearchController()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherVM.vc = self
@@ -19,6 +18,8 @@ class WeatherViewController: UIViewController{
         setupTableView()
         setupNavigationBar()
     }
+    
+    
 }
 
 
@@ -28,19 +29,23 @@ extension WeatherViewController:UINavigationBarDelegate,UISearchBarDelegate{
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
     }
-  
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count >= 3 {
+      func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(callGetWeather), object: nil)
             self.perform(#selector(callGetWeather), with: nil, afterDelay: 1)
-        }
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         callGetWeather()
+        self.view.endEditing(true)
+        
     }
     @objc func callGetWeather(){
         print(searchController.searchBar.text!)
-        weatherVM.getWeatherData(cityName: searchController.searchBar.text!)
+        do{
+            _ = try ValidationService.shared.validateSearch(searchController.searchBar.text)
+            weatherVM.getWeatherData(cityName: searchController.searchBar.text!)
+        }catch{
+            print(error.localizedDescription)
+        }
     }
 }
 extension WeatherViewController:UITableViewDataSource,UITableViewDelegate{
@@ -60,12 +65,19 @@ extension WeatherViewController:UITableViewDataSource,UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? WeatherTableViewCell
-        if weatherVM.model != nil{
+        //validate nonImage data
+        do{
+            _ = try ValidationService.shared.validateWeatherModel(model: weatherVM.model)
             cell?.model = weatherVM.model?.list![indexPath.row]
+        }catch{
+            print(error.localizedDescription)
         }
-        if weatherVM.imageArr?.count != 0 && weatherVM.imageArr?.count == weatherVM.model?.list?.count{
+        //validate image
+        do{
+            _ = try ValidationService.shared.validateImageArray(arrImg: weatherVM.imageArr, modelCount: (weatherVM.model?.list!.count)!)
             cell?.imageViewWeather.image = weatherVM.imageArr![indexPath.row]
-            print(weatherVM.imageArr![indexPath.row])
+        }catch{
+            print(error.localizedDescription)
         }
         return cell!
     }

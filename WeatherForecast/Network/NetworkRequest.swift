@@ -22,23 +22,25 @@ class NetworkRequest{
             "units":"metric"]
         AF.request(urlWeather, method: .get, parameters: parameters)
             .response { response in
-            if let data = response.data {
-                do{
-                    var result = try JSONDecoder().decode(WeatherModel.self, from: data)
-                    if result.list != nil{
-                        result.getAverageTemp()
-                        result.getDate()
-                        completion(result, "pass")
-                    }else{
-                        completion(result, "fail")
-                        return
-                    }
-                   
-                }catch let err{
+                switch(response.result){
+                case .failure(let err):
                     print(err.localizedDescription)
+                case.success(let data):
+                    do{
+                        var result = try JSONDecoder().decode(WeatherModel.self, from: data!)
+                        if result.list != nil{
+                            result.getAverageTemp()
+                            result.getDate()
+                            completion(result, "pass")
+                        }else{
+                            completion(result, "fail")
+                            return
+                        }
+                    }catch let err{
+                        print(err.localizedDescription)
+                    }
                 }
             }
-        }
     }
 
     let urlImage = "http://openweathermap.org/img/wn/"
@@ -46,12 +48,14 @@ class NetworkRequest{
         let url = urlImage + imageID + "@2x.png"
         AF.request(url, method: .get, parameters: nil)
             .responseImage(completionHandler: {response in
-                if case .success(let image) = response.result {
-                        completion(image)
-                }else{
+                switch(response.result){
+                case .success(let image):
+                    completion(image)
+
+                case .failure(let error):
+                    print(error.localizedDescription)
                     let image = UIImage(named: "loading")
                     completion(image!)
-
                 }
                 
         })

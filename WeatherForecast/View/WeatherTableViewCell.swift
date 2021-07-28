@@ -50,28 +50,23 @@ class WeatherTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.font = UIFont.systemFont(ofSize: 15)
-        dateLabel.text = "Date:"
-        
+
         stackView.addArrangedSubview(avgTempLabel)
         avgTempLabel.translatesAutoresizingMaskIntoConstraints = false
         avgTempLabel.font = UIFont.systemFont(ofSize: 15)
-        avgTempLabel.text = "Average Tempurature:"
         
         stackView.addArrangedSubview(pressureLabel)
         pressureLabel.translatesAutoresizingMaskIntoConstraints = false
         pressureLabel.font = UIFont.systemFont(ofSize: 15)
-        pressureLabel.text = "Pressure:"
         
         stackView.addArrangedSubview(humidityLabel)
         humidityLabel.translatesAutoresizingMaskIntoConstraints = false
         humidityLabel.font = UIFont.systemFont(ofSize: 15)
-        humidityLabel.text = "Humidity:"
 
         
         stackView.addArrangedSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont.systemFont(ofSize: 15)
-        descriptionLabel.text = "Description:"
         
         self.addSubview(imageViewWeather)
         imageViewWeather.translatesAutoresizingMaskIntoConstraints = false
