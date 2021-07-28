@@ -72,6 +72,7 @@ class WeatherTableViewCell: UITableViewCell {
         imageViewWeather.translatesAutoresizingMaskIntoConstraints = false
         imageViewWeather.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         imageViewWeather.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        imageViewWeather.leadingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -10).isActive = true
         imageViewWeather.contentMode = .center
         imageViewWeather.contentMode = .scaleAspectFit
         let temp = UIImage(named: "loading")
