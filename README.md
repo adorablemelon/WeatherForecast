@@ -49,21 +49,16 @@ The picture is already straightforward:
 - **Alamofire**
 > To handle RESTful API
 - **AlamofireImage**
-> To simplifier image download
+> To simplify image download
 
 ## Checklist
-- Programming language: Swift is required, Objective-C is optional.
-> ✅
-- Design app's architecture (MVC or MVP, MVVM).
-> ✅
-- UI should be looks like in attachment.
-> ✅
-- Write UnitTests (nice to have).
-> ✅ 
-> Although I haven't covered all of the possibilities, I just tested for a certain testcases
-- Exception handling (optional).
-> ✅ 
+- Programming language: Swift is required, Objective-C is optional. ✅
+
+- Design app's architecture (MVC or MVP, MVVM). ✅
+- UI should be looks like in attachment. ✅
+- Write UnitTests (nice to have). ✅
+> Although I haven't covered all of the possibilities, I just tested for a certain testcases 
+- Exception handling (optional). ✅
 > I think I covered most of them but there is always a potential bug
-- Readme file included.
-> ✅
+- Readme file included. ✅
 
