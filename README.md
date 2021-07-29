@@ -59,6 +59,6 @@ The picture is already straightforward:
 - Write UnitTests (nice to have). ✅
 > Although I haven't covered all of the possibilities, I just tested for a certain testcases 
 - Exception handling (optional). ✅
-> I think I covered most of them but there is always a potential bug
+> I think I covered most of them but there is always some unfortunate potential
 - Readme file included. ✅
 
