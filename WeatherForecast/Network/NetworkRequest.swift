@@ -13,6 +13,7 @@ class NetworkRequest{
     private init(){
     }
     
+    let imageCache = NSCache<NSString, UIImage>()
     let urlWeather = "https://api.openweathermap.org/data/2.5/forecast/daily"
     func getWeather(cityName:String,completion: @escaping (WeatherModel,String)->()){
         let parameters: Parameters = [
@@ -45,11 +46,18 @@ class NetworkRequest{
 
     let urlImage = "http://openweathermap.org/img/wn/"
     func getImage(imageID:String,completion: @escaping (UIImage)->()){
+        
+        if let img = imageCache.object(forKey:imageID as NSString){
+            print("used cached")
+            completion(img)
+        }
+        
         let url = urlImage + imageID + "@2x.png"
         AF.request(url, method: .get, parameters: nil)
             .responseImage(completionHandler: {response in
                 switch(response.result){
                 case .success(let image):
+                    self.imageCache.setObject(image, forKey: imageID as NSString)
                     completion(image)
 
                 case .failure(let error):
