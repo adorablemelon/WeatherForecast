@@ -69,12 +69,6 @@ extension WeatherViewController:UITableViewDataSource,UITableViewDelegate{
         do{
             _ = try ValidationService.shared.validateWeatherModel(model: weatherVM.model)
             cell?.model = weatherVM.model?.list![indexPath.row]
-        }catch{
-            print(error.localizedDescription)
-        }
-        //validate image
-        do{
-            _ = try ValidationService.shared.validateImageArray(arrImg: weatherVM.imageArr, modelCount: (weatherVM.model?.list!.count)!)
             cell?.imageViewWeather.image = weatherVM.imageArr![indexPath.row]
         }catch{
             print(error.localizedDescription)

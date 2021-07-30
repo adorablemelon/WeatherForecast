@@ -19,6 +19,7 @@ class WeatherViewModel{
         NetworkRequest.shared.getWeather(cityName: cityName, completion: { [self] (data,status)  in
             if status == "pass"{
                 self.model = data
+                self.initImgArr()
                 self.getWeatherImage()
                 DispatchQueue.main.async{
                     self.vc?.weatherTableView.reloadData()
@@ -34,15 +35,18 @@ class WeatherViewModel{
     
     
     func getWeatherImage(){
-        imageArr = [UIImage]()
         for i in 0...(model?.list!.count)!-1{
             NetworkRequest.shared.getImage(imageID: (model?.list![i].weather?[0].icon)!, completion: { [self](image)  in
-                    self.imageArr!.append(image)
+                self.imageArr![i] = image
                     DispatchQueue.main.async{
                         self.vc?.weatherTableView.reloadData()
                     }
         
             })
         }
+    }
+    
+    func initImgArr(){
+        imageArr = [UIImage](repeating: UIImage(named: "loading")!, count: (model?.list!.count)!)
     }
 }
