@@ -12,24 +12,6 @@ Clone the project and open the file
 NABWeather.xcworkspace
 ```
 
-
-## Principles
-
-- **KISS (Keep It Simple Stupid)**
- 
- >Most systems work best when kept simple and plain, as opposed to complicated and complex.
-- **YAGNI (You Aren’t Gonna Need It)**
->Always implement things when you actually need them, never when you just foresee that you need them.
-- **SOLID**
->I tried my best to apply SOLID principles but there are obviously rooms for improvement.
-
-## Patterns
-- **SINGLETON**
-> Mostly used, I used it for managing access to a resource which is shared by the entire application, prevent having multiple instanced of the same class.
-
-
-
-
 ## **Architectural pattern**
 - **MVVM**
 > Although this is a simple project, but I want to follow the principles above so MVVM is a good choice, it also make the code more clean and easier to read/understand
